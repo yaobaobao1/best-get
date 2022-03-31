@@ -7,9 +7,7 @@
               <a href="javascript:;" @click="activeName ='account'" :class="{active:activeName ==='account'}">账户登入</a>
               <a href="javascript:;" @click="activeName ='qrcode'" :class="{active:activeName ==='qrcode'}">扫码登入</a>
             </nav>
-            <div v-if="activeName==='account'" class="account-box">
-              <LoginFrom/>
-            </div>
+           <LoginFrom v-if="activeName==='account'">表单</LoginFrom>
             <!-- 二维码 -->
             <div v-if="activeName==='qrcode'" class="qrcode-box">
               <img src="@/assets/images/qrcode.jpg" alt="">
