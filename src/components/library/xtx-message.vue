@@ -1,19 +1,24 @@
 <template>
-    <Transition name="down">
-        <div class="xtx-message" :style="style[type]">
+    <transition name="down">
+        <div class="xtx-message" :style="style[type]" v-show="visible">
             <i class="iconfont" :class="[style[type].icon]"></i>
-            <span class="text">提示文字</span>
+            <span class="text">{{text}}</span>
         </div>
-    </Transition>
+    </transition>
 </template>
 
 <script>
+import { onMounted, ref } from 'vue'
 export default {
   name: 'XtxMessage',
   props: {
     type: {
       type: String,
       default: 'warn'
+    },
+    text: {
+      type: String,
+      default: ''
     }
   },
   setup () {
@@ -39,7 +44,11 @@ export default {
       }
     }
     // 控制元素显示隐藏
-    return { style }
+    const visible = ref(false)
+    onMounted(() => {
+      visible.value = true
+    })
+    return { style, visible }
   }
 }
 </script>
