@@ -1,12 +1,12 @@
 <template>
   <ul class="app-header-nav">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li v-for="item in list" :key="item.id">
-      <RouterLink to="/">{{item.name}}</RouterLink>
+    <li v-for="item in list" :key="item.id" @mousemove="show(item)" @mouseleave="hide(item)">
+      <RouterLink  @click="hide(item)" :to="`/category/${item.id}`">{{item.name}}</RouterLink>
       <div class="layer">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <RouterLink to="/">
+            <RouterLink @click="hide(item)"  :to="`/category/sub/${sub.id}`">
               <img :src="sub.picture" alt="">
               <p>{{sub.name}}</p>
             </RouterLink>
@@ -32,7 +32,13 @@ export default {
     // 1. vuex每个分类加上open数据
     // 2. vuex提供显示和隐藏函数，修改open数据
     // 3. 组件中使用vuex中的函数，使用时间来绑定，提供一个类名显示隐藏的类名
-    return { list }
+    const show = (item) => {
+      store.commit('category/show', item.id)
+    }
+    const hide = (item) => {
+      store.commit('category/hide', item.id)
+    }
+    return { list, show, hide }
   }
 }
 </script>

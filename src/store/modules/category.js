@@ -16,6 +16,14 @@ export default {
     setList (state, payload) {
       // payload所有的分类集合
       state.list = payload
+    },
+    show (state, id) {
+      const currCategory = state.list.find(item => item.id === id)
+      currCategory.open = true
+    },
+    hide (state, id) {
+      const currCategory = state.list.find(item => item.id === id)
+      currCategory.open = false
     }
   },
   // 获取分类函数
